@@ -1,0 +1,44 @@
+schemaVersion: 2.1.0
+metadata:
+  name: spring-petclinic
+  namespace: rfern156-devspaces
+projects:
+  - git:
+      remotes:
+        origin: 'https://github.com/che-samples/web-java-spring-petclinic.git'
+    name: spring-petclinic
+components:
+  - container:
+      endpoints:
+        - attributes:
+            discoverable: 'false'
+            protocol: http
+            public: 'true'
+            secure: 'false'
+          exposure: public
+          name: petclinic-web-server
+          protocol: http
+          targetPort: 8080
+      env:
+        - name: CHE_DASHBOARD_URL
+          value: 'https://devspaces-openshift-operators.apps.sb109.caas.gcp.ford.com'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://devspaces-openshift-operators.apps.sb109.caas.gcp.ford.com/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
+      image: registry.devshift.net/che/centos_jdk8
+      memoryLimit: 2048M
+      mountSources: true
+      sourceMapping: /projects
+    name: dev
+commands:
+  - exec:
+      commandLine: cd $CHE_PROJECTS_ROOT/spring-petclinic && mvn clean install && cp $CHE_PROJECTS_ROOT/spring-petclinic/target/*.war $TOMCAT_HOME/webapps/ROOT.war && $TOMCAT_HOME/bin/catalina.sh run 2>&1
+      component: dev
+      label: build_&_run
+    id: buildrun
+  - exec:
+      commandLine: $TOMCAT_HOME/bin/catalina.sh stop 2>&1
+      component: dev
+      label: stop
+    id: stop
