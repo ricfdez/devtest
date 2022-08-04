@@ -1,44 +1,33 @@
-schemaVersion: 2.1.0
+apiVersion: 1.0.0
 metadata:
   name: spring-petclinic
-  namespace: rfern156-devspaces
 projects:
-  - git:
-      remotes:
-        origin: 'https://github.com/che-samples/web-java-spring-petclinic.git'
-    name: spring-petclinic
+  - name: spring-petclinic
+    source:
+      type: git
+      location: 'https://github.com/che-samples/web-java-spring-petclinic.git'
 components:
-  - container:
-      endpoints:
-        - attributes:
-            discoverable: 'false'
-            protocol: http
-            public: 'true'
-            secure: 'false'
-          exposure: public
-          name: petclinic-web-server
+  - alias: dev
+    type: dockerimage
+    image: registry.devshift.net/che/centos_jdk8
+    mountSources: true
+    endpoints:
+      - name: petclinic-web-server
+        port: 8080
+        attributes:
           protocol: http
-          targetPort: 8080
-      env:
-        - name: CHE_DASHBOARD_URL
-          value: 'https://devspaces-openshift-operators.apps.sb109.caas.gcp.ford.com'
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://devspaces-openshift-operators.apps.sb109.caas.gcp.ford.com/plugin-registry/v3'
-        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
-          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
-      image: registry.devshift.net/che/centos_jdk8
-      memoryLimit: 2048M
-      mountSources: true
-      sourceMapping: /projects
-    name: dev
+          secure: 'false'
+          public: 'true'
+          discoverable: 'false'
+    memoryLimit: 2048M
 commands:
-  - exec:
-      commandLine: cd $CHE_PROJECTS_ROOT/spring-petclinic && mvn clean install && cp $CHE_PROJECTS_ROOT/spring-petclinic/target/*.war $TOMCAT_HOME/webapps/ROOT.war && $TOMCAT_HOME/bin/catalina.sh run 2>&1
-      component: dev
-      label: build_&_run
-    id: buildrun
-  - exec:
-      commandLine: $TOMCAT_HOME/bin/catalina.sh stop 2>&1
-      component: dev
-      label: stop
-    id: stop
+  - name: build_&_run
+    actions:
+      - type: exec
+        component: dev
+        command: "cd $CHE_PROJECTS_ROOT/spring-petclinic && mvn clean install && cp $CHE_PROJECTS_ROOT/spring-petclinic/target/*.war $TOMCAT_HOME/webapps/ROOT.war && $TOMCAT_HOME/bin/catalina.sh run 2>&1"
+  - name: stop
+    actions:
+      - type: exec
+        component: dev
+        command: "$TOMCAT_HOME/bin/catalina.sh stop 2>&1"
