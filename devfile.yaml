@@ -1,33 +1,3 @@
 apiVersion: 1.0.0
 metadata:
-  name: spring-petclinic
-projects:
-  - name: spring-petclinic
-    source:
-      type: git
-      location: 'https://github.com/che-samples/web-java-spring-petclinic.git'
-components:
-  - alias: dev
-    type: dockerimage
-    image: registry.devshift.net/che/centos_jdk8
-    mountSources: true
-    endpoints:
-      - name: petclinic-web-server
-        port: 8080
-        attributes:
-          protocol: http
-          secure: 'false'
-          public: 'true'
-          discoverable: 'false'
-    memoryLimit: 2048M
-commands:
-  - name: build_&_run
-    actions:
-      - type: exec
-        component: dev
-        command: "cd $CHE_PROJECTS_ROOT/spring-petclinic && mvn clean install && cp $CHE_PROJECTS_ROOT/spring-petclinic/target/*.war $TOMCAT_HOME/webapps/ROOT.war && $TOMCAT_HOME/bin/catalina.sh run 2>&1"
-  - name: stop
-    actions:
-      - type: exec
-        component: dev
-        command: "$TOMCAT_HOME/bin/catalina.sh stop 2>&1"
+  name: Ricardo Test
