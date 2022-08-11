@@ -12,9 +12,3 @@ components:
       #memoryRequest: 1Gi -> testing with more resources.
       #cpuLimit: 500m -> testing with more resources.
       #cpuRequest: 30m -> testing with more resources.
-commands:
-- id: 0-prep01-deploy-editors
-  exec:
-    commandLine: 'kubectl apply -f ./ttyd.yml && kubectl apply -f ./vs-code.yml'
-    component: devtools
-
