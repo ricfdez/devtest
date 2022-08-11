@@ -2,7 +2,7 @@ schemaVersion: 2.1.0
 metadata:
   name: test-ric
 #attributes:
- # controller.devfile.io/storage-type: ephemeral -> now, it didnt like this when tried the VSCODE URL WHY
+ controller.devfile.io/storage-type: ephemeral 
 components:
   - name: frontend
     container:
