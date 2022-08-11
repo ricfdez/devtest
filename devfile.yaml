@@ -8,7 +8,7 @@ components:
     container:
       image: quay.io/rfern156/dsbase:latest
       #image: quay.io/williammr/devspaces:0.0.1
-      memoryLimit: 2Gi
-      memoryRequest: 1Gi
-      cpuLimit: 500m
-      cpuRequest: 30m
+     # memoryLimit: 2Gi -> testing with more resources.
+      #memoryRequest: 1Gi -> testing with more resources.
+      #cpuLimit: 500m -> testing with more resources.
+      #cpuRequest: 30m -> testing with more resources.
