@@ -1,0 +1,14 @@
+schemaVersion: 2.1.0
+metadata:
+  name: test-ric
+attributes:
+  controller.devfile.io/storage-type: ephemeral
+components:
+  - name: frontend
+    container:
+      image: quay.io/rfern156/dsbase:latest
+      #image: quay.io/williammr/devspaces:0.0.1
+      memoryLimit: 2Gi
+      memoryRequest: 1Gi
+      cpuLimit: 500m
+      cpuRequest: 30m
