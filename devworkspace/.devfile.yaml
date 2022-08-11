@@ -17,10 +17,10 @@ components:
       volumeMounts:
         - name: checode
           path: /checode
-      memoryLimit: 1024Mi
-      memoryRequest: 256Mi
-      cpuLimit: 500m
-      cpuRequest: 30m
+      #memoryLimit: 1024Mi
+     #memoryRequest: 256Mi
+      #cpuLimit: 500m
+      #cpuRequest: 30m
       endpoints:
         - name: che-code
           attributes:
