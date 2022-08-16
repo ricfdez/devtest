@@ -6,7 +6,7 @@ metadata:
 components:
   - name: frontend
     container:
-      image: quay.io/rfern156/dsbase:latest
+      image: quay.io/williammr/devspaces:latest
       #image: quay.io/williammr/devspaces:0.0.1
      # memoryLimit: 2Gi -> testing with more resources.
       #memoryRequest: 1Gi -> testing with more resources.
