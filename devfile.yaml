@@ -6,8 +6,8 @@ metadata:
 components:
   - name: frontend
     container:
-       image: quay.io/devfile/universal-developer-image:ubi8-3d26fec
-      #image: quay.io/williammr/devspaces:latest
+      # image: quay.io/devfile/universal-developer-image:ubi8-3d26fec
+      image: quay.io/williammr/devspaces:latest
       #image: quay.io/williammr/devspaces:0.0.1
      # memoryLimit: 2Gi -> testing with more resources.
       #memoryRequest: 1Gi -> testing with more resources.
