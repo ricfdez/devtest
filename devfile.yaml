@@ -1,16 +1,45 @@
 schemaVersion: 2.1.0
 metadata:
-  name: test-ric
-  #attributes:
- #controller.devfile.io/storage-type: ephemeral 
+  description: 'Go environment. reference from:https://github.com/devfile/registry/blob/main/stacks/go/devfile.yaml '
+  displayName: Go Runtime
+  name: go
+  projectType: Go
+  provider: Red Hat
+  language: Go
+  tags:
+    - Go
+  version: 1.0.2
+projects:
+  - name: go-starter
+    git:
+      checkoutFrom:
+        revision: master
+      remotes:
+        origin: https://github.ford.com/Cloud-Platform-Development/Go-Starter.git
 components:
-  - name: frontend
-    container:
-      image: quay.io/devfile/universal-developer-image:ubi8-3d26fec
-      #image: quay.io/williammr/devspaces:latest
-      
-      #image: quay.io/williammr/devspaces:0.0.1
-     # memoryLimit: 2Gi -> testing with more resources.
-      #memoryRequest: 1Gi -> testing with more resources.
-      #cpuLimit: 500m -> testing with more resources.
-      #cpuRequest: 30m -> testing with more resources.
+  - container:
+      endpoints:
+        - name: http-go
+          targetPort: 8080
+      image: quay.io/devfile/golang:latest
+      args: ['tail', '-f', '/dev/null']
+      memoryLimit: 1024Mi
+      mountSources: true
+    name: runtime
+commands:
+  - exec:
+      commandLine: GOCACHE=${PROJECT_SOURCE}/.cache go build main.go
+      component: runtime
+      group:
+        isDefault: true
+        kind: build
+      workingDir: ${PROJECT_SOURCE}
+    id: build
+  - exec:
+      commandLine: ./main
+      component: runtime
+      group:
+        isDefault: true
+        kind: run
+      workingDir: ${PROJECT_SOURCE}
+    id: run
