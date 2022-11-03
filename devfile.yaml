@@ -1,5 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
+#yo
   description: 'Go environment. reference from:https://github.com/devfile/registry/blob/main/stacks/go/devfile.yaml '
   displayName: Go Runtime
   name: go
